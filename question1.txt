@@ -1,0 +1,29 @@
+public class MinPrice {
+
+	/* algoritm explenation - we start from station i = 0, we can either walk over j = 1 stations
+	 * and then find the rest in a recursive way, or we can decide to increase j and go over 2 stations
+	 * then find the rest and so on...
+	 * 
+	 * (*) basically we check for the lower of 2 numbers, either we keep the current distance to travel
+	 * and then check the rest
+	 * or we increase the distance of travel and check again from (*)
+	 */
+
+	public static int minPrice(int[][] mat) {
+		return minPrice(mat, 0, 1);
+	}
+
+	public static int minPrice(int[][] mat, int i, int j) {
+		
+		if (i == mat.length - 1) return 0; // we're at the final station
+		if (j == mat.length) return integer.MAX_VALUE;	// we're out of bounds
+
+		// check the 2 paths, either from station i until station j and then start again from station j in a recursive way
+		// or check the price of going over j in a recursive way
+			
+		// return the minimum price we'll pay
+		return Math.min(mat[i][j] + minPrice(mat, j, j + 1) , minPrice(mat, i, j + 1));
+		
+	}
+
+}

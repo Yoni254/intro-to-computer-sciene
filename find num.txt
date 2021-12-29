@@ -1,0 +1,49 @@
+public class FindNum {
+
+	/**
+	 * this method finds the index of a given number inside an array of ranges
+	 * it is using a binary search due to the array being sorted,
+	 * time complexity - O(log n), space complexity = O(1)
+	 * @param rangeA an array of ranges to find a number in
+	 * @param num the number the method searches for
+	 * @return the index of the num in the range array, -1 if non found.
+	 */ 
+	public static int findNum(Range[] rangeA, int num) {
+		
+		int index, high = rangeA.length, low = -1;
+		do {
+			index = (high + low) / 2;
+			
+			// check this spot
+			// same as index center
+			if (rangeA[index].getCenter() == num) {
+				return index;
+			}
+			// left of index center
+			if (rangeA[index].getCenter() > num) {
+				// check if in range
+				if (rangeA[index].getCenter() - rangeA[index].getRadius() <= num) {
+					return index;
+				}
+				// move the binary search pointers
+				high = index;
+			}
+			// right of index center
+			if (rangeA[index].getCenter() < num) {
+				// check if in range
+				if (rangeA[index].getCenter() + rangeA[index].getRadius() >= num) {
+					return index;
+				}
+				// move the binary search pointers
+				low = index;
+			}
+			
+			
+
+		} while (high - 1 != low)
+		// at this point nothing was found
+		return -1;
+	
+	}
+}
+			

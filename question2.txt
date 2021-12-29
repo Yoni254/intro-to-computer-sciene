@@ -1,0 +1,84 @@
+public class FindAverage {
+	
+	/* Algorithm explenation - given a value x I'll try to find using binary search 2 (or 1) values close to each other
+	 * one will be above and one will be bellow, then I'll calculate the average,
+	 * if avg > x : move low down
+	 * if avg < x : move high up
+	 * if reached the end and the num wasn't found, return false
+	 *
+	 * time complexity in WORST case is O(n) but in the normal case would be O(log n)
+	 * space complexity - O(1)
+	 *
+	 * NOTE: I'm not sure if we need to print ALL of the arrays or if 1 is enough
+	 * I'll go with 1 as it's more efficient and the istructions said "return true" 
+	 * but if we need to print all it's just not stopping the loop
+	 * and in that case our time complexity will be O(n)
+	 *		
+	 */
+
+	public static boolean findAverage(int[] arr, double x) {
+		int high = arr.length - 1, low = 0;
+		int sum = 0, avg, index;
+		double count = 0;
+		
+		// check if x is in range
+		if (x > arr[high] || x < arr[low]) return false;
+
+		// binary search - O(log n)
+		// to find 2 values, one above and one bellow x
+		while true {
+			index = (high + low) / 2;
+			// found a match
+			if (arr[index] > x && arr[index - 1] < x) {
+				high = index;
+				low = index - 1;
+				break;
+			}
+
+			// a magic match!
+			if ((double)arr[index] == x) {
+				System.out.println(index + "---" index);
+				return true;
+			}
+			// check the right most edge
+			if ((double)arr[index + 1] == x) {
+				System.out.println(index + 1 + "---" index + 1);
+				return true;
+			}
+
+
+			if (arr[index] < x) {
+				// it's right of us
+				low = index;
+			}
+			if (arr[index] > x) {
+				// it's left of us
+				high = index;
+			}
+		}
+		
+		sum += arr[high] + arr[low];
+		count = 2;	
+
+		// here we'll start moving the high and low values until we find a match
+		while (high != arr.length && low != -1) {
+			if (sum / count == x) {
+				System.out.println(low + "---" + high);
+				return true; // REMOVE THIS LINE IF WE NEED ALL OF THE ARRAYS AND NOT JUST ONE 
+				// (and add one of the next if's content)
+			}
+			if (sum / count > x) {
+				low--;
+				sum += arr[low];
+			}
+			if (sum / count < x) {
+				high++;
+				sum += arr[high];
+			}
+			count++
+		}
+		// we're out of the loop bounds and we haven't found a match yet
+		return false;	
+
+	}
+}

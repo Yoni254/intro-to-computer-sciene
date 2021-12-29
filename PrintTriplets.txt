@@ -1,0 +1,50 @@
+public class PrintTriplets {
+
+	/* Algorithm - we'll pick 2 points, one at the end and one at the start of the array.
+	 * now we''l start going in a linear way across the array (not on the pointers) and based on the result 
+	 * of a[low] * a[high] * a[index] we'll figure out if we found a triplet 
+	 * or if we need to multiply by a lower or higher number, in which case we'll move our pointers a bit until a match is found (or not)
+	 * time complexity - O(n^2)
+	 * space complexity - O(1)
+	 */
+
+
+	public static void printTriplets(int[] a, int num) {
+		int high = a.length - 1, low = 0;
+		int index = 1;
+		while (index != a.length - 2) {
+
+			// check for a match
+			if (a[low] * a[high] * a[index] == num)
+				System.our.println(a[low] + " " + a[index] + " " + a[high]);
+			else {
+				do {
+					// move the high and low pointers closley to the index based on the size of the multiplication
+					// in this case high is to high
+					if (a[low] * a[high] * a[index] > num) {
+						if (high == index + 1) break;
+						high--;
+					}
+					// in this case low is to low
+					else if (a[low] * a[high] * a[index] < num) {
+						if (low == index + 1) break;
+						low++;
+					}
+					// end here we reached a valid combination
+					else {
+						System.our.println(a[low] + " " + a[index] + " " + a[high]);
+						break;
+					}
+				} while (low != index - 1 || high != index + 1;
+
+				// reset the values and move to the next index
+				high = a.length - 1;
+				low = 0
+			}
+			index++;
+		}
+	}
+}
+		
+
+
